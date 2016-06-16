@@ -1,0 +1,16 @@
+{{set . "title" "Add User"}}
+{{template "header.html" .}}
+
+<div class="container">
+  <h1>Add Users</h1>
+  {{ template "User/_form.html" }}
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="span6">
+      {{template "flash.html" .}}
+    </div>
+  </div>
+</div>
+
