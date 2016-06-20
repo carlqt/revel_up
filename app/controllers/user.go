@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
+  "github.com/carlqt/revel_up/app/models"
 	"time"
 )
 
@@ -11,7 +12,9 @@ type User struct {
 
 func (c User) Index() revel.Result {
 	greeting := "Hello baby!"
-	return c.Render(greeting)
+	users := models.All()
+	revel.INFO.Println(users)
+	return c.Render(greeting, users)
 }
 
 func (c User) New() revel.Result {
@@ -21,6 +24,7 @@ func (c User) New() revel.Result {
 }
 
 func (c User) Create(username string, email string) revel.Result {
-	revel.INFO.Println(email)
+	user := &models.User{username, email}
+	user.Create()
 	return c.Redirect(User.Index)
 }
