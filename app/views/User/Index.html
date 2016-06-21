@@ -6,7 +6,12 @@
     <div class="hero-text">
       <h1>{{ .greeting }}</h1>
       <a href="/user/new">Add users</a>
-      {{.users}}
+        <ul>
+          {{ range $index, $element := .users }}
+            {{ range $key, $value := $element }}
+              <li>{{ $key }}</li>
+            {{end}}
+          {{ end }}
       <p></p>
     </div>
   </div>
