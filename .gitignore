@@ -1,2 +1,5 @@
 test-results/
 *.swp
+routes.go
+tmp/
+*.db
