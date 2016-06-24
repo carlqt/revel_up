@@ -20,8 +20,8 @@
             {{ with $element }}
             <tr>
               <th>{{$index}}</th>
-              <td>{{ index . "username" }}</td>
-              <td>{{ index . "email" }}</td>
+              <td>{{ .Username }}</td>
+              <td>{{ .Email }}</td>
             </tr>
             {{ end }}
           {{ end }}

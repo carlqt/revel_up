@@ -11,7 +11,7 @@ type User struct {
 }
 
 func (c User) Index() revel.Result {
-	greeting := "Hello baby!"
+	greeting := "Hello Carl!"
 	users := models.All()
 	revel.INFO.Println(users)
 	return c.Render(greeting, users)
