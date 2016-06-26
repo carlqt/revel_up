@@ -1,9 +1,7 @@
 package models
 
 import (
-	_ "database/sql"
 	"github.com/carlqt/revel_up/app"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 type User struct {
@@ -25,7 +23,6 @@ func All() []User {
 
 	for rows.Next() {
 		rows.Scan(&user.Username, &user.Email)
-		//users[i] = map[string]interface{}{"username": username, "email": email}
 		users = append(users, user)
 	}
 

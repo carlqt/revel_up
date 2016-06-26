@@ -19,6 +19,7 @@ func (c User) Index() revel.Result {
 
 func (c User) New() revel.Result {
 	now := time.Now()
+	revel.ERROR.Println("Hello from down under")
 	revel.INFO.Println("STATUS " + now.String())
 	return c.Render()
 }
