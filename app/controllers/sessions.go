@@ -29,6 +29,7 @@ func (c Sessions) Register() revel.Result {
     return c.Redirect(Sessions.New)
   } else {
     u.Create()
+    c.Flash.Success("User created")
     return c.Redirect(User.Index)
   }
 }
