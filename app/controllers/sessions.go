@@ -11,11 +11,20 @@ type Sessions struct {
 }
 
 func (c Sessions) New() revel.Result {
+
   return c.Render()
 }
 
-func (c Sessions) Create() revel.Result {
-  return c.Redirect(User.Index)
+func (c Sessions) Create(username string, password string) revel.Result {
+  u := models.User{Username: username, Password: password}
+
+  if u.Authenticate() {
+    c.Flash.Success("Login successful")
+    return c.Redirect(User.Index)
+  } else {
+    c.Flash.Error("User or Password is incorrect")
+    return c.RenderTemplate("Sessions/New.html")
+  }
 }
 
 func (c Sessions) Register() revel.Result {

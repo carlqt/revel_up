@@ -28,9 +28,13 @@ func (_ tSessions) New(
 }
 
 func (_ tSessions) Create(
+		username string,
+		password string,
 		) string {
 	args := make(map[string]string)
 	
+	revel.Unbind(args, "username", username)
+	revel.Unbind(args, "password", password)
 	return revel.MainRouter.Reverse("Sessions.Create", args).Url
 }
 

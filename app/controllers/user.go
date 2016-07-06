@@ -10,6 +10,10 @@ type User struct {
 }
 
 func (c User) Index() revel.Result {
+	// if c.Session["username"] == "" {
+	// 	c.Flash.Error("You are not logged in")
+	// 	return c.Redirect(Sessions.New)
+	// }
 	greeting := "Hello Carl!"
 	users := models.All()
 	return c.Render(greeting, users)

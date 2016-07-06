@@ -32,6 +32,29 @@ func (u *User) Create() {
 	}
 }
 
+func (u *User) Authenticate() bool{
+	var hashedPassword []byte
+
+	rows, err := app.DB.Query("SELECT password FROM users WHERE username = ?", u.Username)
+	defer rows.Close()
+
+	for rows.Next() {
+		err := rows.Scan(&hashedPassword)
+
+		if err != nil {
+			revel.ERROR.Println(err)	
+		}
+	}
+
+	err = bcrypt.CompareHashAndPassword(hashedPassword, []byte(u.Password))
+
+	if err != nil {
+		return false
+	} else {
+		return true
+	}
+}
+
 func All() []User {
 	var user User
 
