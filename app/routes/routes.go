@@ -16,6 +16,39 @@ func (_ tApp) Index(
 }
 
 
+type tSessions struct {}
+var Sessions tSessions
+
+
+func (_ tSessions) New(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Sessions.New", args).Url
+}
+
+func (_ tSessions) Create(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Sessions.Create", args).Url
+}
+
+func (_ tSessions) Register(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Sessions.Register", args).Url
+}
+
+func (_ tSessions) Destroy(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Sessions.Destroy", args).Url
+}
+
+
 type tUser struct {}
 var User tUser
 
@@ -37,11 +70,15 @@ func (_ tUser) New(
 func (_ tUser) Create(
 		username string,
 		email string,
+		password string,
+		passwordConfirmation string,
 		) string {
 	args := make(map[string]string)
 	
 	revel.Unbind(args, "username", username)
 	revel.Unbind(args, "email", email)
+	revel.Unbind(args, "password", password)
+	revel.Unbind(args, "passwordConfirmation", passwordConfirmation)
 	return revel.MainRouter.Reverse("User.Create", args).Url
 }
 

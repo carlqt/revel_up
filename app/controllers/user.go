@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
-	"time"
+  "github.com/carlqt/revel_up/app/models"
 )
 
 type User struct {
@@ -10,17 +10,17 @@ type User struct {
 }
 
 func (c User) Index() revel.Result {
-	greeting := "Hello baby!"
-	return c.Render(greeting)
+	greeting := "Hello Carl!"
+	users := models.All()
+	return c.Render(greeting, users)
 }
 
 func (c User) New() revel.Result {
-	now := time.Now()
-	revel.INFO.Println("STATUS " + now.String())
 	return c.Render()
 }
 
-func (c User) Create(username string, email string) revel.Result {
-	revel.INFO.Println(email)
+func (c User) Create(username string, email string, password string, passwordConfirmation string) revel.Result {
+	user := &models.User{username, email, password, passwordConfirmation}
+	user.Create()
 	return c.Redirect(User.Index)
 }

@@ -6,7 +6,27 @@
     <div class="hero-text">
       <h1>{{ .greeting }}</h1>
       <a href="/user/new">Add users</a>
-      <p></p>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range $index, $element := .users }}
+            {{ with $element }}
+            <tr>
+              <th>{{$index}}</th>
+              <td>{{ .Username }}</td>
+              <td>{{ .Email }}</td>
+            </tr>
+            {{ end }}
+          {{ end }}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
