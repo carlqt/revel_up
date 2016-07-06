@@ -50,8 +50,29 @@ func main() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					13: []string{ 
+					14: []string{ 
 					},
+				},
+			},
+			&revel.MethodType{
+				Name: "Create",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Register",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+				},
+			},
+			&revel.MethodType{
+				Name: "Destroy",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
 				},
 			},
 			
@@ -64,7 +85,7 @@ func main() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					17: []string{ 
+					15: []string{ 
 						"greeting",
 						"users",
 					},
@@ -75,7 +96,7 @@ func main() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					24: []string{ 
+					19: []string{ 
 					},
 				},
 			},
@@ -84,6 +105,8 @@ func main() {
 				Args: []*revel.MethodArg{ 
 					&revel.MethodArg{Name: "username", Type: reflect.TypeOf((*string)(nil)) },
 					&revel.MethodArg{Name: "email", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "password", Type: reflect.TypeOf((*string)(nil)) },
+					&revel.MethodArg{Name: "passwordConfirmation", Type: reflect.TypeOf((*string)(nil)) },
 				},
 				RenderArgNames: map[int][]string{ 
 				},
@@ -149,6 +172,13 @@ func main() {
 		})
 	
 	revel.DefaultValidationKeys = map[string]map[int]string{ 
+		"github.com/carlqt/revel_up/app/models.(*User).Validate": { 
+			16: "u.Username",
+			17: "u.Email",
+			18: "u.Password",
+			19: "u.PasswordConfirmation",
+			20: "u.Password",
+		},
 	}
 	testing.TestSuites = []interface{}{ 
 		(*tests.AppTest)(nil),

@@ -9,6 +9,9 @@ GET     /users                                  User.Index
 GET     /user/new                               User.New
 POST    /user                                   User.Create
 GET     /sessions/sign_in                       Sessions.New
+POST    /session                                Sessions.Create
+DELETE  /sessions                               Sessions.Destroy
+POST    /sessions/register                      Sessions.Register
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
