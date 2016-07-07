@@ -4,9 +4,12 @@ import (
 	"github.com/carlqt/revel_up/app"
 	"github.com/revel/revel"
 	"golang.org/x/crypto/bcrypt"
+  "database/sql"
+	"strconv"
 )
 
 type User struct {
+	ID 			 string
 	Username string
 	Email    string
 	Password string
@@ -26,7 +29,8 @@ func (u *User) Create() {
 	stmnt, err := app.DB.Prepare("INSERT INTO users(username, email, password) VALUES(?, ?, ?)")
 
 	if err == nil {
-		stmnt.Exec(u.Username, u.Email, hashedPassword)
+		result, _ := stmnt.Exec(u.Username, u.Email, hashedPassword)
+		u.ID = getInsertId(result)
 	} else {
 		revel.ERROR.Println(err)
 	}
@@ -35,14 +39,14 @@ func (u *User) Create() {
 func (u *User) Authenticate() bool{
 	var hashedPassword []byte
 
-	rows, err := app.DB.Query("SELECT password FROM users WHERE username = ?", u.Username)
+	rows, err := app.DB.Query("SELECT id, password FROM users WHERE username = ?", u.Username)
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&hashedPassword)
+		err := rows.Scan(&u.ID, &hashedPassword)
 
 		if err != nil {
-			revel.ERROR.Println(err)	
+			revel.ERROR.Println(err)
 		}
 	}
 
@@ -68,4 +72,11 @@ func All() []User {
 	}
 
 	return users
+}
+
+func getInsertId(r sql.Result) string {
+	id, _ := r.LastInsertId()
+	s := strconv.FormatInt(id, 10)
+
+	return s
 }
