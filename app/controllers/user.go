@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"github.com/carlqt/revel_up/app/models"
 	"github.com/revel/revel"
-  "github.com/carlqt/revel_up/app/models"
 )
 
 type User struct {
@@ -28,4 +28,13 @@ func (c User) Create(username string, email string, password string, passwordCon
 	user := &models.User{Username: username, Email: email, Password: password, PasswordConfirmation: passwordConfirmation}
 	user.Create()
 	return c.Redirect(User.Index)
+}
+
+func checkUser(c *revel.Controller) revel.Result {
+	revel.INFO.Println(c.Session.Id())
+	return nil
+}
+
+func init() {
+	revel.InterceptFunc(checkUser, revel.BEFORE, &User{})
 }
