@@ -42,6 +42,10 @@ func (u *User) Authenticate() bool{
 	rows, err := app.DB.Query("SELECT id, password FROM users WHERE username = ?", u.Username)
 	defer rows.Close()
 
+	if err != nil {
+		revel.ERROR.Println(err)
+	}
+
 	for rows.Next() {
 		err := rows.Scan(&u.ID, &hashedPassword)
 
