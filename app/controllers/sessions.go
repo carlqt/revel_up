@@ -46,7 +46,13 @@ func (c Sessions) Register() revel.Result {
 }
 
 func (c Sessions) Destroy() revel.Result {
-  return c.Redirect(Sessions.New)
+  r := make(map[string]string)
+
+  delete(c.Session, "session_id")
+
+  r["session"] = "destroyed"
+  c.Flash.Success("User has been logged out")
+  return c.RenderJson(r)
 }
 
 func newUser(params url.Values) *models.User {

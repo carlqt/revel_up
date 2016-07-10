@@ -16,12 +16,12 @@ $(document).ready(function(){
   });
 
   $('#logout').on('click', function(e){
-    e.preventDefault();
-
     $.ajax({
       url: '/sessions',
       type: 'DELETE'
-    });
+    }).done(function (){
+      window.location.href = "/sessions/sign_in";
+    })
 
     return false;
   });
